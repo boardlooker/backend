@@ -1,17 +1,15 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
     build: .
-    ports:
-      - "8000:8000"
     expose:
-      - 8000
+      - 80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.boardlooker.rule=Host(`boardlooker-api.timofeev41.com`)"
-      - "traefik.http.routers.boardlooker.tls=true"
-      - "traefik.http.routers.boardlooker.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.fastapi.rule=Host(`api.timofeev41.com`)"
+      - "traefik.http.routers.fastapi.tls=true"
+      - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
 
     networks:
       - proxy
