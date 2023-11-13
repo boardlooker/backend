@@ -8,6 +8,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.boardlooker.rule=Host(`boardlooker-api.timofeev41.com`)"
+      - "traefik.http.routers.boardlooker.tls=true"
+      - "traefik.http.routers.boardlooker.tls.certresolver=letsencrypt"
+
     networks:
       - proxy
 
