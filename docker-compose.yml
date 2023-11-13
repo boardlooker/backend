@@ -8,3 +8,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.fastapi.rule=Host(`boardlooker-api.timofeev41.com`)"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: proxy
