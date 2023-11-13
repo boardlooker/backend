@@ -7,7 +7,7 @@ services:
       - "8000:8000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.fastapi.rule=Host(`boardlooker-api.timofeev41.com`)"
+      - "traefik.http.routers.boardlooker.rule=Host(`boardlooker-api.timofeev41.com`)"
     networks:
       - proxy
 
