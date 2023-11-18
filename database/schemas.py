@@ -42,3 +42,8 @@ class BoardgameBase(Schema):
     year: int = Field(gt=1900, lt=2025)
     language: BoardgameLanguage | None = BoardgameLanguage.russian
     genre: BoardgameGenre | None = BoardgameGenre.other
+
+
+class BookingStatus(int, Enum):
+    success = 1
+    canceled = 2
