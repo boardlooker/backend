@@ -20,6 +20,21 @@ class UserRetrieve(Schema):
     birthdate: datetime.date
 
 
+class LocationType(str, Enum):
+    bar = "bar"
+    cafe = "cafe"
+    hookah = "hookah"
+    other = "other"
+
+
+class LocationRetrieve(Schema):
+    title: str
+    location: str
+    location_city: str
+    location_address: str
+    location_type: LocationType = LocationType.other
+
+
 class BoardgameLanguage(int, Enum):
     russian = 1
     english = 2

@@ -9,16 +9,12 @@ from database.session import StartedSession
 
 
 async def authorized_user(token: str = Header(...), session: Session = Depends(StartedSession)) -> object:
-    exc = HTTPException(status_code=403, detail='Ошибка при декодировании токена')
+    exc = HTTPException(status_code=403, detail="Ошибка при декодировании токена")
     try:
-        username, password = token.split('_')
+        username, password = token.split("_")
     except:
         raise exc
-    if user := session.scalar(
-        select(User).where(
-            User.username == username, User.password == password
-        )
-    ):
+    if user := session.scalar(select(User).where(User.username == username, User.password == password)):
         return user
     raise exc
 
