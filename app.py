@@ -1,3 +1,5 @@
+import contextlib
+
 from fastapi import FastAPI
 from routers import *
 
@@ -13,5 +15,5 @@ async def init_db():
     from database.models import Base
     from database.session import engine
 
-    Base.metadata.create_all(engine)
-
+    with contextlib.suppress(BaseException):
+        Base.metadata.create_all(engine)

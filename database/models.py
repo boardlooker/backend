@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, Date
+from sqlalchemy import Boolean, Column, Integer, String, Date, SmallInteger
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
@@ -22,3 +22,16 @@ class User(BaseModelWithID):
 
     def __str__(self) -> str:
         return f"User: {self.username}"
+
+
+class Boardgame(BaseModelWithID):
+    __tablename__ = 'boardgames'
+
+    title = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    year = Column(SmallInteger, nullable=False)
+    language = Column(SmallInteger, nullable=False)
+    genre = Column(SmallInteger, nullable=False)
+
+    def __str__(self) -> str:
+        return f"Boardgame: {self.id} {self.title}"
