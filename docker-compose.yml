@@ -3,8 +3,8 @@ version: '3.8'
 services:
   backend:
     build: .
-    expose:
-      - 80
+    ports:
+      - "8000:8000"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.fastapi.rule=Host(`api.timofeev41.com`)"
