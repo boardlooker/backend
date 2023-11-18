@@ -6,3 +6,12 @@ app = FastAPI(title='Boardlooker Backend API', version='0.0.1', docs_url='/swagg
 app.include_router(boardgames_router)
 app.include_router(locations_router)
 app.include_router(users_router)
+
+
+@app.on_event('startup')
+async def init_db():
+    from database.models import Base
+    from database.session import engine
+
+    Base.metadata.create_all(engine)
+
