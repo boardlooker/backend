@@ -1,5 +1,7 @@
-from sqlalchemy import Boolean, Column, Integer, String, Date, SmallInteger
+from sqlalchemy import Boolean, Column, Integer, String, Date, SmallInteger, ForeignKey
 from sqlalchemy.orm import declarative_base
+
+from database.schemas import BookingStatus
 
 Base = declarative_base()
 
@@ -35,3 +37,23 @@ class Boardgame(BaseModelWithID):
 
     def __str__(self) -> str:
         return f"Boardgame: {self.id} {self.title}"
+
+
+class BoardgameLocation(BaseModelWithID):
+    __tablename__ = 'boardgamelocations'
+
+    boardgame_id = Column(ForeignKey('boardgames.id'))
+    location_id = Column(Integer, nullable=True)  # TODO: wait for Zarina
+    available = Column(Boolean, nullable=False, default=True)
+
+    def __str__(self) -> str:
+        return f"BG Location: {self.boardgame_id} {self.location_id}"
+
+
+class Booking(BaseModelWithID):
+    __tablename__ = 'bookings'
+
+    user_id = Column(ForeignKey('users.id'), nullable=False)
+    status = Column(SmallInteger, nullable=False, default=BookingStatus.success)
+    bg_location_id = Column(ForeignKey('boardgamelocations.id'), nullable=False)
+    slot = Column(SmallInteger, nullable=False)
