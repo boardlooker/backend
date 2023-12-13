@@ -1,6 +1,6 @@
 import datetime
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Body
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -47,8 +47,8 @@ class Token(Schema):
 
 @router.post("/signin", tags=["Auth"], response_model=Token)
 async def sign_in_for_token(
-    username: str,
-    password: str,
+    username: str = Body(...),
+    password: str = Body(...),
     session: Session = Depends(StartedSession),
 ):
     """Вход в учетную запись для получения токена."""
