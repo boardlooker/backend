@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from database.models import Boardgame
-from database.schemas import BoardgameBase
+from database.schemas import BoardgameBase, BoardgameRetrieve
 from database.session import StartedSession
 from utils.dependencies import CurrentUser
 
@@ -21,7 +21,7 @@ async def get_boardgame_by_id(bg_id: int):
     """Получить данные конкретной настольной игры по ее id."""
 
 
-@router.post("/", response_model=BoardgameBase)
+@router.post("/", response_model=BoardgameRetrieve)
 async def create_new_boardgame(
     game: BoardgameBase,
     session: Session = Depends(StartedSession),
@@ -35,7 +35,7 @@ async def create_new_boardgame(
     return bg
 
 
-@router.get("/", response_model=list[BoardgameBase])
+@router.get("/", response_model=list[BoardgameRetrieve])
 async def fetch_all_boardgames_ever_possible(
     session: Session = Depends(StartedSession),
 ):

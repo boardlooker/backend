@@ -28,6 +28,7 @@ class LocationType(str, Enum):
 
 
 class LocationRetrieve(Schema):
+    id: int
     title: str
     location: str
     location_city: str
@@ -57,6 +58,10 @@ class BoardgameBase(Schema):
     year: int = Field(gt=1900, lt=2025)
     language: BoardgameLanguage | None = BoardgameLanguage.russian
     genre: BoardgameGenre | None = BoardgameGenre.other
+
+
+class BoardgameRetrieve(BoardgameBase):
+    id: int
 
 
 class BookingStatus(int, Enum):
