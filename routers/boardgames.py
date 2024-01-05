@@ -43,15 +43,6 @@ async def fetch_all_boardgames_ever_possible(
     return session.scalars(select(Boardgame)).all()
 
 
-@router.post("/{bg_id}")
-async def make_a_booking(
-    user: CurrentUser,
-    bg_id: int,
-    slot_id: int = Body(..., ge=1, le=24, description="Номер слота от 1 до 24 (слот = 1 час времени)"),
-):
-    """Создать заявку на бронирование настольной игры."""
-
-
 @router.post('/connect')
 async def connect_boardgame_to_loc(
     bg_id: int, loc_id: int,
@@ -69,3 +60,10 @@ async def connect_boardgame_to_loc(
         raise HTTPException(status_code=404, detail='Not found')
 
 
+@router.post("/{bg_id}")
+async def make_a_booking(
+    user: CurrentUser,
+    bg_id: int,
+    slot_id: int = Body(..., ge=1, le=24, description="Номер слота от 1 до 24 (слот = 1 час времени)"),
+):
+    """Создать заявку на бронирование настольной игры."""
