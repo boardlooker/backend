@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, HTTPException
 from pydantic import Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from database.models import Boardgame
+from database.models import Boardgame, BoardgameLocation
 from database.schemas import BoardgameBase, BoardgameRetrieve
 from database.session import StartedSession
 from utils.dependencies import CurrentUser
@@ -50,3 +50,22 @@ async def make_a_booking(
     slot_id: int = Body(..., ge=1, le=24, description="Номер слота от 1 до 24 (слот = 1 час времени)"),
 ):
     """Создать заявку на бронирование настольной игры."""
+
+
+@router.post('/connect')
+async def connect_boardgame_to_loc(
+    bg_id: int, loc_id: int,
+    available: bool = True,
+):
+    """Привязать настолку к локации. 
+    Available по умолчанию True, если хотите скрыть из общего списка сделайте False."""
+    try:
+        BoardgameLocation.insert(
+            boardgame_id=bg_id,
+            location_id=loc_id,
+            available=True,
+        )
+    except:
+        raise HTTPException(status_code=404, detail='Not found')
+
+

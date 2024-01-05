@@ -76,7 +76,7 @@ class BoardgameLocation(BaseModelWithID):
     __tablename__ = "boardgamelocations"
 
     boardgame_id = Column(ForeignKey("boardgames.id"))
-    location_id = Column(Integer, nullable=True)  # TODO: wait for Zarina
+    location_id = Column(ForeignKey("locations.id"), nullable=False)
     available = Column(Boolean, nullable=False, default=True)
 
     def __str__(self) -> str:
