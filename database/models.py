@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, Date, SmallInteger, ForeignKey
 from sqlalchemy import select
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import declarative_base, relationship, Mapped
 
 from database.schemas import BookingStatus, LocationType
 from database.session import SessionLocal
@@ -78,6 +78,9 @@ class BoardgameLocation(BaseModelWithID):
     boardgame_id = Column(ForeignKey("boardgames.id"))
     location_id = Column(ForeignKey("locations.id"), nullable=False)
     available = Column(Boolean, nullable=False, default=True)
+
+    location: Mapped[list['Location']] = relationship()
+    boardgame: Mapped[list['Boardgame']] = relationship()
 
     def __str__(self) -> str:
         return f"BG Location: {self.boardgame_id} {self.location_id}"

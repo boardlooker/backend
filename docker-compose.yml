@@ -10,9 +10,25 @@ services:
       - "traefik.http.routers.fastapi.rule=Host(`api.timofeev41.com`)"
       - "traefik.http.routers.fastapi.tls=true"
       - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
-
     networks:
       - proxy
+    command: uvicorn app:app --host 0.0.0.0 --port 80
+
+
+  # admin:
+  #   build: .
+  #   expose:
+  #     - 4000
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.adminapi.rule=Host(`admin.timofeev41.com`)"
+  #     - "traefik.http.routers.adminapi.tls=true"
+  #     - "traefik.http.routers.adminapi.tls.certresolver=letsencrypt"
+  #   networks:
+  #     - proxy
+  #   command: python admin.py
+
+
 
 networks:
   proxy:
